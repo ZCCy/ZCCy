@@ -13,15 +13,20 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="对数几率回归（logistics regression）理论学习：线性回归模型可得到：$ y =\omega^Tx+b  $ ，这个模型可以很好的符合当输入值（也就是x，条件值）和输出值 （也就是y，预测值）为线性函数关系的时候。那么当$x$ 和$y$不再是线性函数映射的时候，线性回归模型的$plus$版：广义线性模型：$y=g^{-1}(\omega^T+b)$也可以将$x$和$y$联系起来，其">
+  <meta name="description" content="对数几率回归（logistics
+regression）
+理论学习：
+线性回归模型可得到：$ y =^Tx+b $
+，这个模型可以很好的符合当输入值（也就是x，条件值）和输出值
+（也就是y，预测值）为线性函数关系的时候。那么当\(x\) 和\(y\)不再是线性函数映射的时候，线性回归模型的\(plus\)版：广义线性模型：\(y=g^{-1}(\omega^T+b)\)也可以将\(x\)和\(y\">
   <meta name="author" content="chenyuZhong">
   <meta name="keywords" content="">
-  <meta name="description" content="对数几率回归（logistics regression）理论学习：线性回归模型可得到：$ y &#x3D;\omega^Tx+b  $ ，这个模型可以很好的符合当输入值（也就是x，条件值）和输出值 （也就是y，预测值）为线性函数关系的时候。那么当$x$ 和$y$不再是线性函数映射的时候，线性回归模型的$plus$版：广义线性模型：$y&#x3D;g^{-1}(\omega^T+b)$也可以将$x$和$y$联系起来，其">
+  <meta name="description" content="对数几率回归（logistics regression） 理论学习： 线性回归模型可得到：$ y &#x3D;^Tx+b $ ，这个模型可以很好的符合当输入值（也就是x，条件值）和输出值 （也就是y，预测值）为线性函数关系的时候。那么当\(x\) 和\(y\)不再是线性函数映射的时候，线性回归模型的\(plus\)版：广义线性模型：\(y&#x3D;g^{-1}(\omega^T+b)\)也可以将\(x\)和\(y\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="对数几率回归（logistics-regression）">
 <meta property="og:url" content="http://example.com/2022/08/09/%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92%EF%BC%88logistics-regression%EF%BC%89/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="对数几率回归（logistics regression）理论学习：线性回归模型可得到：$ y &#x3D;\omega^Tx+b  $ ，这个模型可以很好的符合当输入值（也就是x，条件值）和输出值 （也就是y，预测值）为线性函数关系的时候。那么当$x$ 和$y$不再是线性函数映射的时候，线性回归模型的$plus$版：广义线性模型：$y&#x3D;g^{-1}(\omega^T+b)$也可以将$x$和$y$联系起来，其">
+<meta property="og:description" content="对数几率回归（logistics regression） 理论学习： 线性回归模型可得到：$ y &#x3D;^Tx+b $ ，这个模型可以很好的符合当输入值（也就是x，条件值）和输出值 （也就是y，预测值）为线性函数关系的时候。那么当\(x\) 和\(y\)不再是线性函数映射的时候，线性回归模型的\(plus\)版：广义线性模型：\(y&#x3D;g^{-1}(\omega^T+b)\)也可以将\(x\)和\(y\">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/对数几率函数.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/2HDPb4.png">
@@ -201,7 +206,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.2k 字
+      4.3k 字
     </span>
   
 
@@ -210,7 +215,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      35 分钟
+      36 分钟
     </span>
   
 
@@ -296,57 +301,89 @@
             <h1 style="display: none;">对数几率回归（logistics-regression）</h1>
             
             <div class="markdown-body">
-              <h1 id="对数几率回归（logistics-regression）"><a href="#对数几率回归（logistics-regression）" class="headerlink" title="对数几率回归（logistics regression）"></a>对数几率回归（logistics regression）</h1><h2 id="理论学习："><a href="#理论学习：" class="headerlink" title="理论学习："></a>理论学习：</h2><p><strong>线性回归模型</strong>可得到：$ y =\omega^Tx+b  $ ，这个模型可以很好的符合当<strong>输入值</strong>（也就是x，条件值）和<strong>输出值</strong> （也就是y，预测值）为<strong>线性函数关系</strong>的时候。那么当$x$ 和$y$不再是线性函数映射的时候，线性回归模型的$plus$版：<strong>广义线性模型</strong>：$y=g^{-1}(\omega^T+b)$也可以将$x$和$y$联系起来，其中$g^{-1}(·)$就是$x$和$y$对应的函数映射。例如本次要探究的<strong>对数几率回归模型</strong>。</p>
-<p>对数几率回归模型的主要应用在各种<strong>二分类</strong>的问题里，在二分类问题里，预测值的值域是$\{0/1\}$。要将线性的输入值投射到$\{ 0/1\} $的值域区间内，就需要找到一个函数，可以将$z$投射到$\{0/1\}$的的值域内。这样最理想的函数便是接近<strong>单位阶级跃函数</strong>的一个替代函数：</p>
-<script type="math/tex; mode=display">
-y=\frac{1}{1+e^{-z}}</script><p><img src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/对数几率函数.png" srcset="/img/loading.gif" lazyload alt="对数几率函数" style="zoom: 20%;" /></p>
-<p>由图可以看到：该函数可以近似为一个单位阶级跃函数：</p>
-<script type="math/tex; mode=display">
+              <h1 id="对数几率回归logistics-regression">对数几率回归（logistics
+regression）</h1>
+<h2 id="理论学习">理论学习：</h2>
+<p><strong>线性回归模型</strong>可得到：$ y =^Tx+b $
+，这个模型可以很好的符合当<strong>输入值</strong>（也就是x，条件值）和<strong>输出值</strong>
+（也就是y，预测值）为<strong>线性函数关系</strong>的时候。那么当<span
+class="math inline">\(x\)</span> 和<span
+class="math inline">\(y\)</span>不再是线性函数映射的时候，线性回归模型的<span
+class="math inline">\(plus\)</span>版：<strong>广义线性模型</strong>：<span
+class="math inline">\(y=g^{-1}(\omega^T+b)\)</span>也可以将<span
+class="math inline">\(x\)</span>和<span
+class="math inline">\(y\)</span>联系起来，其中<span
+class="math inline">\(g^{-1}(·)\)</span>就是<span
+class="math inline">\(x\)</span>和<span
+class="math inline">\(y\)</span>对应的函数映射。例如本次要探究的<strong>对数几率回归模型</strong>。</p>
+<p>对数几率回归模型的主要应用在各种<strong>二分类</strong>的问题里，在二分类问题里，预测值的值域是<span
+class="math inline">\(\{0/1\}\)</span>。要将线性的输入值投射到${ 0/1}
+<span
+class="math inline">\(的值域区间内，就需要找到一个函数，可以将\)</span>z<span
+class="math inline">\(投射到\)</span>{0/1}$的的值域内。这样最理想的函数便是接近<strong>单位阶级跃函数</strong>的一个替代函数：
+<span class="math display">\[
+y=\frac{1}{1+e^{-z}}
+\]</span>
+<img src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/对数几率函数.png" srcset="/img/loading.gif" lazyload alt="对数几率函数" style="zoom: 20%;" /></p>
+<p>由图可以看到：该函数可以近似为一个单位阶级跃函数： <span
+class="math display">\[
 \begin{eqnarray}
 \end{eqnarray}y=\left\{\begin{array}{cc}
-0, & z<0 \\
-0.5, & z=0 \\
-1, & z>0。
-\end{array}\right.</script><p>当我们得到了在二分类中的$x$和$y$对应的函数映射，将输入值的线性表达带入$y=\frac{1}{1+e^{-z}}$中，便可以得到对数几率回归的模型：</p>
-<script type="math/tex; mode=display">
-h=\frac{1}{1+e^{-(\omega ^Tx+b)}}</script><p>通过极大似然法（maximum likelihood method），来估计要训练的参数：$\omega,b$</p>
-<script type="math/tex; mode=display">
-L(\omega,b)=\prod_{i=1}^{m} P\left(y_{i} \mid x_{i} ; \omega,b\right)=\prod_{i=1}^{m}\left(h_{\omega,b}\left(x_{i}\right)\right)^{y_{i}}\left(1-h_{\omega,b}\left(x_{i}\right)\right)^{1-y_{i}}</script><p>接着通过梯度下降法，求出参数$\omega,b$的更新公式：</p>
-<script type="math/tex; mode=display">
+0, &amp; z&lt;0 \\
+0.5, &amp; z=0 \\
+1, &amp; z&gt;0。
+\end{array}\right.
+\]</span> 当我们得到了在二分类中的<span
+class="math inline">\(x\)</span>和<span
+class="math inline">\(y\)</span>对应的函数映射，将输入值的线性表达带入<span
+class="math inline">\(y=\frac{1}{1+e^{-z}}\)</span>中，便可以得到对数几率回归的模型：
+<span class="math display">\[
+h=\frac{1}{1+e^{-(\omega ^Tx+b)}}
+\]</span></p>
+<p>通过极大似然法（maximum likelihood
+method），来估计要训练的参数：<span
+class="math inline">\(\omega,b\)</span> <span class="math display">\[
+L(\omega,b)=\prod_{i=1}^{m} P\left(y_{i} \mid x_{i} ;
+\omega,b\right)=\prod_{i=1}^{m}\left(h_{\omega,b}\left(x_{i}\right)\right)^{y_{i}}\left(1-h_{\omega,b}\left(x_{i}\right)\right)^{1-y_{i}}
+\]</span> 接着通过梯度下降法，求出参数<span
+class="math inline">\(\omega,b\)</span>的更新公式： <span
+class="math display">\[
 \begin{array}{l}
-\omega_j \leftarrow \omega_j-\alpha \frac{1}{m} {\textstyle \sum_{i=1}^{m}} (h(x_i)-y_i)x_i^j \\
-b_j \leftarrow b_j-\alpha\frac{1}{m}{\textstyle \sum_{i=1}^{m}}(h(x_i)-y_i)
-\end{array}</script><h2 id="实践："><a href="#实践：" class="headerlink" title="实践："></a>实践：</h2><ul>
+\omega_j \leftarrow \omega_j-\alpha \frac{1}{m} {\textstyle
+\sum_{i=1}^{m}} (h(x_i)-y_i)x_i^j \\
+b_j \leftarrow b_j-\alpha\frac{1}{m}{\textstyle
+\sum_{i=1}^{m}}(h(x_i)-y_i)
+\end{array}
+\]</span></p>
+<h2 id="实践">实践：</h2>
+<ul>
 <li><p>数据集：该数据集描述的是一位顾客在年龄和预算的两个条件下是否会购买该商品</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/2HDPb4.png" srcset="/img/loading.gif" lazyload alt="EpBzio" style="zoom: 40%;" /></p>
-</li>
+<p><img src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/2HDPb4.png" srcset="/img/loading.gif" lazyload alt="EpBzio" style="zoom: 40%;" /></p></li>
 <li><p>测试结果：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/EpBzio.tif" srcset="/img/loading.gif" lazyload alt="EpBzio" style="zoom: 67%;" /></p>
-</li>
+<p><img src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/EpBzio.tif" srcset="/img/loading.gif" lazyload alt="EpBzio" style="zoom: 67%;" /></p></li>
 </ul>
 <p>具体会用到的包：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split<br><span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler<br><span class="hljs-keyword">import</span> logistic_regression_mine<br><span class="hljs-keyword">from</span> matplotlib.colors <span class="hljs-keyword">import</span> ListedColormap<br></code></pre></td></tr></table></figure>
-<h4 id="数据归一化与标准化："><a href="#数据归一化与标准化：" class="headerlink" title="数据归一化与标准化："></a>数据归一化与标准化：</h4><ul>
+<h4 id="数据归一化与标准化">数据归一化与标准化：</h4>
+<ul>
 <li><p>计算训练集的平均值和标准差，以便测试数据集使用相同的变换。一般情况下，在监督学习中，我们需要利用训练集数据对测试集数据进行预测。这里隐含了一个假设，就是训练数据和测试数据实际上是同分布的（因此我们才可以使用训练数据集来预测测试数据集），来自于同一个总体。在进行标准化的过程中就将训练集的均值和方差当做是总体的均值和方差，因此对测试集使用训练集的均值和方差进行预处理</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">ataset = pd.read_csv(<span class="hljs-string">&#x27;datasets/Social_Network_Ads.csv&#x27;</span>)<br><span class="hljs-comment"># iloc[a:b,c:d]:取行索引从a到b-1，列索引从c到d-1的数据。</span><br><span class="hljs-comment"># iloc[a:b,[c,d]]]:取行索引从a到b-1，列索引从c到d的数据。</span><br><span class="hljs-comment"># iloc[].values，用values属性取值，返回ndarray，但是单个数值无法用values函数读取。</span><br>X = dataset.iloc[:, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]].values  <span class="hljs-comment"># 取年龄和薪资两列</span><br>y = dataset.iloc[:, <span class="hljs-number">4</span>].values  <span class="hljs-comment"># 取出结果（是否购买）</span><br><span class="hljs-comment"># 分割训练集和测试集</span><br>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.25</span>, random_state=<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">ataset = pd.read_csv(<span class="hljs-string">&#x27;datasets/Social_Network_Ads.csv&#x27;</span>)<br><span class="hljs-comment"># iloc[a:b,c:d]:取行索引从a到b-1，列索引从c到d-1的数据。</span><br><span class="hljs-comment"># iloc[a:b,[c,d]]]:取行索引从a到b-1，列索引从c到d的数据。</span><br><span class="hljs-comment"># iloc[].values，用values属性取值，返回ndarray，但是单个数值无法用values函数读取。</span><br>X = dataset.iloc[:, [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]].values  <span class="hljs-comment"># 取年龄和薪资两列</span><br>y = dataset.iloc[:, <span class="hljs-number">4</span>].values  <span class="hljs-comment"># 取出结果（是否购买）</span><br><span class="hljs-comment"># 分割训练集和测试集</span><br>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.25</span>, random_state=<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="使用训练集训练并预测："><a href="#使用训练集训练并预测：" class="headerlink" title="使用训练集训练并预测："></a>使用训练集训练并预测：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">classifier = LogisticRegression()<br>classifier.fit(X_train, y_train)<br>clf = logistic_regression_mine.LogisticRegressionMine(learning_rate=<span class="hljs-number">0.1</span>, max_iter=<span class="hljs-number">500</span>, seed=<span class="hljs-number">272</span>)<br>clf.fit(X_train, y_train)<br>y_pred = clf.predict(X_test)<br></code></pre></td></tr></table></figure>
-<h4 id="图形化处理："><a href="#图形化处理：" class="headerlink" title="图形化处理："></a>图形化处理：</h4><ul>
+<h4 id="使用训练集训练并预测">使用训练集训练并预测：</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">classifier = LogisticRegression()<br>classifier.fit(X_train, y_train)<br>clf = logistic_regression_mine.LogisticRegressionMine(learning_rate=<span class="hljs-number">0.1</span>, max_iter=<span class="hljs-number">500</span>, seed=<span class="hljs-number">272</span>)<br>clf.fit(X_train, y_train)<br>y_pred = clf.predict(X_test)<br></code></pre></td></tr></table></figure>
+<h4 id="图形化处理">图形化处理：</h4>
+<ul>
 <li><p>生成可视化：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">X_set, y_set = X_test, y_test<br>X1, X2 = np. meshgrid(np. arange(start=X_set[:, <span class="hljs-number">0</span>].<span class="hljs-built_in">min</span>()-<span class="hljs-number">1</span>, stop=X_set[:, <span class="hljs-number">0</span>].<span class="hljs-built_in">max</span>()+<span class="hljs-number">1</span>, step=<span class="hljs-number">0.01</span>),np. arange(start=X_set[:, <span class="hljs-number">1</span>].<span class="hljs-built_in">min</span>()-<span class="hljs-number">1</span>, stop=X_set[:, <span class="hljs-number">1</span>].<span class="hljs-built_in">max</span>()+<span class="hljs-number">1</span>, step=<span class="hljs-number">0.01</span>))<br>plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),<br>             alpha=<span class="hljs-number">0.75</span>, cmap=ListedColormap((<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>)))<br>plt.xlim(X1.<span class="hljs-built_in">min</span>(), X1.<span class="hljs-built_in">max</span>())<br>plt.ylim(X2.<span class="hljs-built_in">min</span>(), X2.<span class="hljs-built_in">max</span>())<br><span class="hljs-keyword">for</span> i, j <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(np. unique(y_set)):<br>    plt.scatter(X_set[y_set == j, <span class="hljs-number">0</span>], X_set[y_set == j, <span class="hljs-number">1</span>],<br>                c=ListedColormap((<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>))(i), label=j)<br>plt. title(<span class="hljs-string">&#x27; LOGISTIC(Test set)&#x27;</span>)<br>plt. xlabel(<span class="hljs-string">&#x27; Age&#x27;</span>)<br>plt. ylabel(<span class="hljs-string">&#x27; Estimated Salary&#x27;</span>)<br>plt. legend()<br>plt. show()<br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">X_set, y_set = X_test, y_test<br>X1, X2 = np. meshgrid(np. arange(start=X_set[:, <span class="hljs-number">0</span>].<span class="hljs-built_in">min</span>()-<span class="hljs-number">1</span>, stop=X_set[:, <span class="hljs-number">0</span>].<span class="hljs-built_in">max</span>()+<span class="hljs-number">1</span>, step=<span class="hljs-number">0.01</span>),np. arange(start=X_set[:, <span class="hljs-number">1</span>].<span class="hljs-built_in">min</span>()-<span class="hljs-number">1</span>, stop=X_set[:, <span class="hljs-number">1</span>].<span class="hljs-built_in">max</span>()+<span class="hljs-number">1</span>, step=<span class="hljs-number">0.01</span>))<br>plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),<br>             alpha=<span class="hljs-number">0.75</span>, cmap=ListedColormap((<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>)))<br>plt.xlim(X1.<span class="hljs-built_in">min</span>(), X1.<span class="hljs-built_in">max</span>())<br>plt.ylim(X2.<span class="hljs-built_in">min</span>(), X2.<span class="hljs-built_in">max</span>())<br><span class="hljs-keyword">for</span> i, j <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(np. unique(y_set)):<br>    plt.scatter(X_set[y_set == j, <span class="hljs-number">0</span>], X_set[y_set == j, <span class="hljs-number">1</span>],<br>                c=ListedColormap((<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>))(i), label=j)<br>plt. title(<span class="hljs-string">&#x27; LOGISTIC(Test set)&#x27;</span>)<br>plt. xlabel(<span class="hljs-string">&#x27; Age&#x27;</span>)<br>plt. ylabel(<span class="hljs-string">&#x27; Estimated Salary&#x27;</span>)<br>plt. legend()<br>plt. show()<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="逻辑回归实现类："><a href="#逻辑回归实现类：" class="headerlink" title="逻辑回归实现类："></a>逻辑回归实现类：</h4><ul>
+<h4 id="逻辑回归实现类">逻辑回归实现类：</h4>
+<ul>
 <li><p>调用接口与初始化函数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">LogisticRegressionMine</span>(<span class="hljs-title class_ inherited__">object</span>):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, learning_rate=<span class="hljs-number">0.1</span>, max_iter=<span class="hljs-number">100</span>, seed=<span class="hljs-literal">None</span></span>):<br>        self.seed = seed<br>        self.lr = learning_rate<br>        self.max_iter = max_iter<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self, x, y</span>):<br>        np.random.seed(self.seed)<br>        self.w = np.random.normal(loc=<span class="hljs-number">0.0</span>, scale=<span class="hljs-number">1.0</span>, size=x.shape[<span class="hljs-number">1</span>])<br>        self.b = np.random.normal(loc=<span class="hljs-number">0.0</span>, scale=<span class="hljs-number">1.0</span>)<br>        self.x = x<br>        self.y = y<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(self.max_iter):<br>            self._update_step()<br>            <span class="hljs-comment"># print(&#x27;loss: \t&#123;&#125;&#x27;.format(self.loss()))</span><br>            <span class="hljs-comment"># print(&#x27;score: \t&#123;&#125;&#x27;.format(self.score()))</span><br>            <span class="hljs-comment"># print(&#x27;w: \t&#123;&#125;&#x27;.format(self.w))</span><br>            <span class="hljs-comment"># print(&#x27;b: \t&#123;&#125;&#x27;.format(self.b))</span><br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">LogisticRegressionMine</span>(<span class="hljs-title class_ inherited__">object</span>):<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, learning_rate=<span class="hljs-number">0.1</span>, max_iter=<span class="hljs-number">100</span>, seed=<span class="hljs-literal">None</span></span>):<br>        self.seed = seed<br>        self.lr = learning_rate<br>        self.max_iter = max_iter<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">fit</span>(<span class="hljs-params">self, x, y</span>):<br>        np.random.seed(self.seed)<br>        self.w = np.random.normal(loc=<span class="hljs-number">0.0</span>, scale=<span class="hljs-number">1.0</span>, size=x.shape[<span class="hljs-number">1</span>])<br>        self.b = np.random.normal(loc=<span class="hljs-number">0.0</span>, scale=<span class="hljs-number">1.0</span>)<br>        self.x = x<br>        self.y = y<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(self.max_iter):<br>            self._update_step()<br>            <span class="hljs-comment"># print(&#x27;loss: \t&#123;&#125;&#x27;.format(self.loss()))</span><br>            <span class="hljs-comment"># print(&#x27;score: \t&#123;&#125;&#x27;.format(self.score()))</span><br>            <span class="hljs-comment"># print(&#x27;w: \t&#123;&#125;&#x27;.format(self.w))</span><br>            <span class="hljs-comment"># print(&#x27;b: \t&#123;&#125;&#x27;.format(self.b))</span><br></code></pre></td></tr></table></figure></li>
 <li><p>定义sigmoid函数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#定义sigmoid函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">sigmoid</span>(<span class="hljs-params">self,z</span>):<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span> / (<span class="hljs-number">1</span> + np.exp(-z))<br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#定义sigmoid函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">sigmoid</span>(<span class="hljs-params">self,z</span>):<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span> / (<span class="hljs-number">1</span> + np.exp(-z))<br></code></pre></td></tr></table></figure></li>
 <li><p>将线性实值投射到sigmoid函数上，并计算预测值:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">self, x, w, b</span>):<br>    z = x.dot(w) + b<br>    <span class="hljs-keyword">return</span> self.sigmoid(z)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict_proba</span>(<span class="hljs-params">self, x=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-keyword">if</span> x <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        x = self.x<br>    y_pred = self._f(x, self.w, self.b)<br>    <span class="hljs-keyword">return</span> y_pred<br><span class="hljs-comment"># 将实值x计算sigmoid的1，0值</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict</span>(<span class="hljs-params">self, x=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-keyword">if</span> x <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        x = self.x<br>    y_pred_proba = self.f(x, self.w, self.b)<br>    y_pred = np.array([<span class="hljs-number">0</span> <span class="hljs-keyword">if</span> y_pred_proba[i] &lt; <span class="hljs-number">0.5</span> <span class="hljs-keyword">else</span> <span class="hljs-number">1</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(y_pred_proba))])<br>    <span class="hljs-keyword">return</span> y_pred<br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">self, x, w, b</span>):<br>    z = x.dot(w) + b<br>    <span class="hljs-keyword">return</span> self.sigmoid(z)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict_proba</span>(<span class="hljs-params">self, x=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-keyword">if</span> x <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        x = self.x<br>    y_pred = self._f(x, self.w, self.b)<br>    <span class="hljs-keyword">return</span> y_pred<br><span class="hljs-comment"># 将实值x计算sigmoid的1，0值</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict</span>(<span class="hljs-params">self, x=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-keyword">if</span> x <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        x = self.x<br>    y_pred_proba = self.f(x, self.w, self.b)<br>    y_pred = np.array([<span class="hljs-number">0</span> <span class="hljs-keyword">if</span> y_pred_proba[i] &lt; <span class="hljs-number">0.5</span> <span class="hljs-keyword">else</span> <span class="hljs-number">1</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(y_pred_proba))])<br>    <span class="hljs-keyword">return</span> y_pred<br></code></pre></td></tr></table></figure></li>
 <li><p>更新参数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_calc_gradient</span>(<span class="hljs-params">self</span>):<br>    y_pred = self.predict()<br>    d_w = (y_pred - self.y).dot(self.x) / <span class="hljs-built_in">len</span>(self.y)<br>    d_b = np.mean(y_pred - self.y)<br>    <span class="hljs-keyword">return</span> d_w, d_b<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_update_step</span>(<span class="hljs-params">self</span>):<br>    d_w, d_b = self._calc_gradient()<br>    self.w = self.w - self.lr * d_w<br>    self.b = self.b - self.lr * d_b<br>    <span class="hljs-keyword">return</span> self.w, self.b<br></code></pre></td></tr></table></figure></li>
 </ul>
