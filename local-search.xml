@@ -4,37 +4,6 @@
   
   
   <entry>
-    <title>test</title>
-    <link href="/2022/08/09/test/"/>
-    <url>/2022/08/09/test/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    <categories>
-      
-      <category>c1</category>
-      
-      <category>c2</category>
-      
-      <category>c3</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>tag1</tag>
-      
-      <tag>tag2</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>对数几率回归（logistics-regression）</title>
     <link href="/2022/08/09/%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92%EF%BC%88logistics-regression%EF%BC%89/"/>
     <url>/2022/08/09/%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92%EF%BC%88logistics-regression%EF%BC%89/</url>
@@ -63,8 +32,8 @@
   
   <entry>
     <title>操作系统学习（一）：启动 _</title>
-    <link href="/2022/08/01/Untitled/"/>
-    <url>/2022/08/01/Untitled/</url>
+    <link href="/2022/08/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8/"/>
+    <url>/2022/08/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8/</url>
     
     <content type="html"><![CDATA[<h4 id="打开电源-cpu初始化bios引导">0、打开电源CPU初始化（BIOS引导)</h4><ul><li>加点之后寄存器开始做一些初始化的工作，将CS=0xFFFF，IP=0X0000，于是CPU转去执行0XFFFF0处的指令，这里是一个指向BIOS程序的入口的转跳指令。</li></ul><h4 id="bios启动">1、BIOS启动：</h4><ul><li>PownOn：校验CMOS（CMOS指保存计算机基本启动信息（如日期、时间、启动设置等）的芯片。CMOS是主板上的一块可读写的并行或串行FLASH芯片，是用来保存<ahref="https://baike.baidu.com/item/BIOS">BIOS</a>的硬件配置和用户对某些参数的设定。）是否正常，检验一些硬件状态。</li><li>POST：检查现存，显卡，内存测试。然后进行分配中断、IO端口、DMA资源等，这个时候会建立一个中断向量表和中断服务程序主要用于用户进行键盘和鼠标操作。</li><li>退出：MBR启动盘再第一扇区占512字节，以0XAA55结束，将启动盘程序复制到物理内存0x7C00处。</li></ul><h4 id="boot引导程序">2、boot引导程序：</h4><ul><li>转交给<strong>Loader</strong>（增添boot引导是为了不让loader硬编码）。</li></ul><h4 id="loader引导加载程序">3、Loader引导加载程序</h4><ul><li>检测硬件信息。</li><li>将当前的实模式转变成<strong>保护模式</strong>（32位）或者<strong>IA-32e</strong>（64位）模式。</li><li>实模式下，内存只有1MB，即2^2020个bit表示地址空间（用两个寄存器CS：IP，因为有20根地址线），在保护模式下有4GB的内存空间，就可以将内核启动参数输入到内核启动程序。</li></ul><h4 id="内核头程序">4、内核头程序：</h4><ul><li>对GDT（全局段描述）表，IDT（中断描述）表和页表初始化，为中断处理，内存管理的初始化做准备。</li></ul><h4 id="内核初始化">5、内核初始化</h4><ul><li>首先创建0号进程，对<strong>中断处理</strong>初始化，因为要考虑到可能会有任何异常情况都导致中断。</li><li>接着是<strong>内存</strong>和<strong>进程管理</strong>的初始化，主要涉及如何获取内存信息，进行内存分配，进程控制结构PCB和进程调度。</li><li><strong>文件系统</strong>初始化，创建一个<strong>虚拟文件系统</strong>，有一个挂载目录。解决文件到磁盘逻辑地址映射，磁盘逻辑地址映射到物理地址映射。</li><li>创建1号进程，第一个用户进程，进入到用户态，完成完整的用户文件系统创建过程，就可以访问根文件系统中的init程序做一些用户态初始化。</li><li>创建2号进程，是内核进程的祖先，负责管理调度其它内核进程。</li></ul><h4id="内核态有了调度进程之后用户便可以开始创建自己的进程启动完成">6、内核态有了调度进程之后，用户便可以开始创建自己的进程，启动完成。</h4>]]></content>
     

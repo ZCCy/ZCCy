@@ -13,23 +13,31 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="
-">
-  <meta name="author" content="John Doe">
+  <meta name="description" content="0、打开电源
+CPU初始化（BIOS引导)
+
+加点之后寄存器开始做一些初始化的工作，将CS=0xFFFF，IP=0X0000，于是CPU转去执行0XFFFF0处的指令，这里是一个指向BIOS程序的入口的转跳指令。
+
+1、BIOS启动：
+
+Pown
+On：校验CMOS（CMOS指保存计算机基本启动信息（如日期、时间、启动设置等）的芯片。CMOS是主板上的一块可读写的并行或串行FLASH芯片，是用来保">
+  <meta name="author" content="chenyuZhong">
   <meta name="keywords" content="">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="http://example.com/2022/08/09/test/index.html">
+  <meta name="description" content="0、打开电源 CPU初始化（BIOS引导)  加点之后寄存器开始做一些初始化的工作，将CS&#x3D;0xFFFF，IP&#x3D;0X0000，于是CPU转去执行0XFFFF0处的指令，这里是一个指向BIOS程序的入口的转跳指令。  1、BIOS启动：  Pown On：校验CMOS（CMOS指保存计算机基本启动信息（如日期、时间、启动设置等）的芯片。CMOS是主板上的一块可读写的并行或串行FLASH芯片，是用来保">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统学习（一）：启动 _">
+<meta property="og:url" content="http://example.com/2022/08/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="0、打开电源 CPU初始化（BIOS引导)  加点之后寄存器开始做一些初始化的工作，将CS&#x3D;0xFFFF，IP&#x3D;0X0000，于是CPU转去执行0XFFFF0处的指令，这里是一个指向BIOS程序的入口的转跳指令。  1、BIOS启动：  Pown On：校验CMOS（CMOS指保存计算机基本启动信息（如日期、时间、启动设置等）的芯片。CMOS是主板上的一块可读写的并行或串行FLASH芯片，是用来保">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-08-09T11:54:00.000Z">
-<meta property="article:modified_time" content="2022-08-09T11:55:02.649Z">
+<meta property="article:published_time" content="2022-08-01T05:26:00.000Z">
+<meta property="article:modified_time" content="2022-08-09T12:42:19.215Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="tag1">
-<meta property="article:tag" content="tag2">
+<meta property="article:tag" content="OS">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>test - Hexo</title>
+  <title>操作系统学习（一）：启动 _ - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -175,7 +183,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="test">
+            <span class="h2" id="subtitle" title="操作系统学习（一）：启动 _">
               
             </span>
 
@@ -185,8 +193,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-08-09 19:54" pubdate>
-        2022-08-09 19:54
+      <time datetime="2022-08-01 13:26" pubdate>
+        2022-08-01 13:26
       </time>
     </span>
   
@@ -196,7 +204,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      887 字
     </span>
   
 
@@ -205,7 +213,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      8 分钟
     </span>
   
 
@@ -250,14 +258,14 @@
       <a class="category-item 
                  
                 list-group-item category-item-action col-10 col-md-11 col-xm-11"
-        id="heading-a9f7e97965d6cf799a529102a973b8b9" role="tab" data-toggle="collapse" href="#collapse-a9f7e97965d6cf799a529102a973b8b9"
+        id="heading-5a596b42154341fee9d0bdf28baa6524" role="tab" data-toggle="collapse" href="#collapse-5a596b42154341fee9d0bdf28baa6524"
         aria-expanded="true"
       >
-        c1(1) 
+        计算机基础(1) 
         <i class="iconfont icon-arrowright"></i>
       </a>
        
-      <div class="category-collapse collapse show" id="collapse-a9f7e97965d6cf799a529102a973b8b9" role="tabpanel" aria-labelledby="heading-a9f7e97965d6cf799a529102a973b8b9">
+      <div class="category-collapse collapse show" id="collapse-5a596b42154341fee9d0bdf28baa6524" role="tabpanel" aria-labelledby="heading-5a596b42154341fee9d0bdf28baa6524">
         
         
           
@@ -280,44 +288,14 @@
       <a class="category-subitem 
                  
                 list-group-item category-item-action col-10 col-md-11 col-xm-11"
-        id="heading-9ab62b5ef34a985438bfdf7ee0102229" role="tab" data-toggle="collapse" href="#collapse-9ab62b5ef34a985438bfdf7ee0102229"
+        id="heading-30d23ef4f49e85f37f54786ff984032c" role="tab" data-toggle="collapse" href="#collapse-30d23ef4f49e85f37f54786ff984032c"
         aria-expanded="true"
       >
-        c2(1) 
+        操作系统(1) 
         <i class="iconfont icon-arrowright"></i>
       </a>
        
-      <div class="category-collapse collapse show" id="collapse-9ab62b5ef34a985438bfdf7ee0102229" role="tabpanel" aria-labelledby="heading-9ab62b5ef34a985438bfdf7ee0102229">
-        
-        
-          
-          
-  <div class="category-post-list">
-    
-    
-  </div>
-
-          
-          
-  
-  
-  
-  
-    
-    
-    
-    <div class="category-sub row">
-      <a class="category-subitem 
-                 
-                list-group-item category-item-action col-10 col-md-11 col-xm-11"
-        id="heading-0a3d72134fb3d6c024db4c510bc1605b" role="tab" data-toggle="collapse" href="#collapse-0a3d72134fb3d6c024db4c510bc1605b"
-        aria-expanded="true"
-      >
-        c3(1) 
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-       
-      <div class="category-collapse collapse show" id="collapse-0a3d72134fb3d6c024db4c510bc1605b" role="tabpanel" aria-labelledby="heading-0a3d72134fb3d6c024db4c510bc1605b">
+      <div class="category-collapse collapse show" id="collapse-30d23ef4f49e85f37f54786ff984032c" role="tabpanel" aria-labelledby="heading-30d23ef4f49e85f37f54786ff984032c">
         
         
           
@@ -326,19 +304,15 @@
     
       
       
-        <a href="/2022/08/09/test/"
+        <a href="/2022/08/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8/"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">test</span>
+          <span class="category-post">操作系统学习（一）：启动 _</span>
         </a>
       
     
   </div>
 
-        
-      </div>
-    </div>
-  
         
       </div>
     </div>
@@ -356,10 +330,47 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none;">test</h1>
+            <h1 style="display: none;">操作系统学习（一）：启动 _</h1>
             
             <div class="markdown-body">
-              
+              <h4 id="打开电源-cpu初始化bios引导">0、打开电源
+CPU初始化（BIOS引导)</h4>
+<ul>
+<li>加点之后寄存器开始做一些初始化的工作，将CS=0xFFFF，IP=0X0000，于是CPU转去执行0XFFFF0处的指令，这里是一个指向BIOS程序的入口的转跳指令。</li>
+</ul>
+<h4 id="bios启动">1、BIOS启动：</h4>
+<ul>
+<li>Pown
+On：校验CMOS（CMOS指保存计算机基本启动信息（如日期、时间、启动设置等）的芯片。CMOS是主板上的一块可读写的并行或串行FLASH芯片，是用来保存<a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/BIOS">BIOS</a>的硬件配置和用户对某些参数的设定。）是否正常，检验一些硬件状态。</li>
+<li>POST：检查现存，显卡，内存测试。然后进行分配中断、IO端口、DMA资源等，这个时候会建立一个中断向量表和中断服务程序主要用于用户进行键盘和鼠标操作。</li>
+<li>退出：MBR启动盘再第一扇区占512字节，以0XAA55结束，将启动盘程序复制到物理内存0x7C00处。</li>
+</ul>
+<h4 id="boot引导程序">2、boot引导程序：</h4>
+<ul>
+<li>转交给<strong>Loader</strong>（增添boot引导是为了不让loader硬编码）。</li>
+</ul>
+<h4 id="loader引导加载程序">3、Loader引导加载程序</h4>
+<ul>
+<li>检测硬件信息。</li>
+<li>将当前的实模式转变成<strong>保护模式</strong>（32位）或者<strong>IA-32e</strong>（64位）模式。</li>
+<li>实模式下，内存只有1MB，即2^20
+20个bit表示地址空间（用两个寄存器CS：IP，因为有20根地址线），在保护模式下有4GB的内存空间，就可以将内核启动参数输入到内核启动程序。</li>
+</ul>
+<h4 id="内核头程序">4、内核头程序：</h4>
+<ul>
+<li>对GDT（全局段描述）表，IDT（中断描述）表和页表初始化，为中断处理，内存管理的初始化做准备。</li>
+</ul>
+<h4 id="内核初始化">5、内核初始化</h4>
+<ul>
+<li>首先创建0号进程，对<strong>中断处理</strong>初始化，因为要考虑到可能会有任何异常情况都导致中断。</li>
+<li>接着是<strong>内存</strong>和<strong>进程管理</strong>的初始化，主要涉及如何获取内存信息，进行内存分配，进程控制结构PCB和进程调度。</li>
+<li><strong>文件系统</strong>初始化，创建一个<strong>虚拟文件系统</strong>，有一个挂载目录。解决文件到磁盘逻辑地址映射，磁盘逻辑地址映射到物理地址映射。</li>
+<li>创建1号进程，第一个用户进程，进入到用户态，完成完整的用户文件系统创建过程，就可以访问根文件系统中的init程序做一些用户态初始化。</li>
+<li>创建2号进程，是内核进程的祖先，负责管理调度其它内核进程。</li>
+</ul>
+<h4
+id="内核态有了调度进程之后用户便可以开始创建自己的进程启动完成">6、内核态有了调度进程之后，用户便可以开始创建自己的进程，启动完成。</h4>
 
             </div>
             <hr />
@@ -369,16 +380,12 @@
                 <div class="post-meta mr-3">
                   <i class="iconfont icon-category"></i>
                   
-                  <a class="hover-with-bg" href="/categories/c1/"
-                    >c1</a
+                  <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"
+                    >计算机基础</a
                   >
                   
-                  <a class="hover-with-bg" href="/categories/c1/c2/"
-                    >c2</a
-                  >
-                  
-                  <a class="hover-with-bg" href="/categories/c1/c2/c3/"
-                    >c3</a
+                  <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"
+                    >操作系统</a
                   >
                   
                 </div>
@@ -386,12 +393,8 @@
                 <div class="post-meta">
                   <i class="iconfont icon-tags"></i>
                   
-                  <a class="hover-with-bg" href="/tags/tag1/"
-                    >tag1</a
-                  >
-                  
-                  <a class="hover-with-bg" href="/tags/tag2/"
-                    >tag2</a
+                  <a class="hover-with-bg" href="/tags/OS/"
+                    >OS</a
                   >
                   
                 </div>
@@ -405,11 +408,17 @@
               <div class="post-prevnext">
                 <article class="post-prev col-6">
                    
+                  <a href="/2022/08/09/%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92%EF%BC%88logistics-regression%EF%BC%89/">
+                    <i class="iconfont icon-arrowleft"></i>
+                    <span class="hidden-mobile">对数几率回归（logistics-regression）</span>
+                    <span class="visible-mobile">Previous</span>
+                  </a>
+                  
                 </article>
                 <article class="post-next col-6">
                    
-                  <a href="/2022/08/09/%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92%EF%BC%88logistics-regression%EF%BC%89/">
-                    <span class="hidden-mobile">对数几率回归（logistics-regression）</span>
+                  <a href="/2022/07/31/hello-world/">
+                    <span class="hidden-mobile">Hello World</span>
                     <span class="visible-mobile">Next</span>
                     <i class="iconfont icon-arrowright"></i>
                   </a>
