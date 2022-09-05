@@ -13,21 +13,46 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="John Doe">
+  <meta name="description" content="因此我们的目标是找到一条直线（图中的最优超平面），离所有点的距离最远。
+由此，
+SVM算法的实质是找出一个能够将某个值最大化的超平面，这个值就是超平面离所有训练样本的最小距离。这个最小距离用SVM术语来说叫做间隔(margin)
+。
+">
+  <meta name="author" content="chenyuZhong">
   <meta name="keywords" content="">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Categories">
-<meta property="og:url" content="http://example.com/categories/index.html">
+  <meta name="description" content="因此我们的目标是找到一条直线（图中的最优超平面），离所有点的距离最远。 由此， SVM算法的实质是找出一个能够将某个值最大化的超平面，这个值就是超平面离所有训练样本的最小距离。这个最小距离用SVM术语来说叫做间隔(margin) 。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逻辑回归（logistics-regression）">
+<meta property="og:url" content="http://example.com/2022/09/05/SupportVectorMachine/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="因此我们的目标是找到一条直线（图中的最优超平面），离所有点的距离最远。 由此， SVM算法的实质是找出一个能够将某个值最大化的超平面，这个值就是超平面离所有训练样本的最小距离。这个最小距离用SVM术语来说叫做间隔(margin) 。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-09-05T10:04:00.000Z">
+<meta property="article:modified_time" content="2022-09-05T10:06:45.154Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="分类">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>Categories - Hexo</title>
+  <title>逻辑回归（logistics-regression） - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -54,7 +79,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -155,9 +180,43 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Category">
+            <span class="h2" id="subtitle" title="逻辑回归（logistics-regression）">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-09-05 18:04" pubdate>
+        2022-09-05 18:04
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      113 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      1 分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -170,20 +229,14 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2 post-categories">
+      
+        
 
-
-<div class="category-list">
-  
-  
 
 
 
@@ -200,101 +253,16 @@
     
     <div class="category row">
       <a class="category-item 
-                collapsed 
-                list-group-item category-item-action col-10 col-md-11 col-xm-11"
-        id="heading-5a596b42154341fee9d0bdf28baa6524" role="tab" data-toggle="collapse" href="#collapse-5a596b42154341fee9d0bdf28baa6524"
-        aria-expanded="false"
-      >
-        计算机基础 
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-       
-      <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-count col-2 col-md-1 col-xm-1">
-        <i class="iconfont icon-articles"></i>
-        <span>1</span>
-      </a>
-       
-      <div class="category-collapse collapse " id="collapse-5a596b42154341fee9d0bdf28baa6524" role="tabpanel" aria-labelledby="heading-5a596b42154341fee9d0bdf28baa6524">
-        
-        
-          
-          
-  <div class="category-post-list">
-    
-    
-  </div>
-
-          
-          
-  
-  
-  
-  
-    
-    
-    
-    <div class="category row">
-      <a class="category-item 
-                collapsed 
-                list-group-item category-item-action col-10 col-md-11 col-xm-11"
-        id="heading-30d23ef4f49e85f37f54786ff984032c" role="tab" data-toggle="collapse" href="#collapse-30d23ef4f49e85f37f54786ff984032c"
-        aria-expanded="false"
-      >
-        操作系统 
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-       
-      <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="category-count col-2 col-md-1 col-xm-1">
-        <i class="iconfont icon-articles"></i>
-        <span>1</span>
-      </a>
-       
-      <div class="category-collapse collapse " id="collapse-30d23ef4f49e85f37f54786ff984032c" role="tabpanel" aria-labelledby="heading-30d23ef4f49e85f37f54786ff984032c">
-        
-        
-          
-  <div class="category-post-list">
-    
-    
-      
-      
-        <a href="/2022/08/01/SystemStart/"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">操作系统学习（一）：启动 _</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div class="category row">
-      <a class="category-item 
-                collapsed 
+                 
                 list-group-item category-item-action col-10 col-md-11 col-xm-11"
         id="heading-e343b96f6460bb0a2be2d2b1794dd7ee" role="tab" data-toggle="collapse" href="#collapse-e343b96f6460bb0a2be2d2b1794dd7ee"
-        aria-expanded="false"
+        aria-expanded="true"
       >
-        机器学习基础实践 
+        机器学习基础实践(3) 
         <i class="iconfont icon-arrowright"></i>
       </a>
        
-      <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%AE%9E%E8%B7%B5/" class="category-count col-2 col-md-1 col-xm-1">
-        <i class="iconfont icon-articles"></i>
-        <span>3</span>
-      </a>
-       
-      <div class="category-collapse collapse " id="collapse-e343b96f6460bb0a2be2d2b1794dd7ee" role="tabpanel" aria-labelledby="heading-e343b96f6460bb0a2be2d2b1794dd7ee">
+      <div class="category-collapse collapse show" id="collapse-e343b96f6460bb0a2be2d2b1794dd7ee" role="tabpanel" aria-labelledby="heading-e343b96f6460bb0a2be2d2b1794dd7ee">
         
         
           
@@ -305,7 +273,7 @@
       
         <a href="/2022/09/05/SupportVectorMachine/"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">逻辑回归（logistics-regression）</span>
         </a>
       
@@ -336,13 +304,91 @@
   
 </div>
 
-</div>
+      
+    </div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none;">逻辑回归（logistics-regression）</h1>
+            
+            <div class="markdown-body">
+              <p>因此我们的目标是找到一条直线（图中的最优超平面），离所有点的距离最远。
+由此，
+SVM算法的实质是找出一个能够将某个值最大化的超平面，这个值就是超平面离所有训练样本的最小距离。这个最小距离用SVM术语来说叫做间隔(margin)
+。</p>
 
-              </div>
             </div>
-          </div>
+            <hr />
+            <div>
+              <div class="post-metas mb-3">
+                
+                <div class="post-meta mr-3">
+                  <i class="iconfont icon-category"></i>
+                  
+                  <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E5%AE%9E%E8%B7%B5/"
+                    >机器学习基础实践</a
+                  >
+                  
+                </div>
+                 
+                <div class="post-meta">
+                  <i class="iconfont icon-tags"></i>
+                  
+                  <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"
+                    >机器学习</a
+                  >
+                  
+                  <a class="hover-with-bg" href="/tags/%E5%88%86%E7%B1%BB/"
+                    >分类</a
+                  >
+                  
+                </div>
+                
+              </div>
+              
+              <p class="note note-warning">
+                 本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！ 
+              </p>
+               
+              <div class="post-prevnext">
+                <article class="post-prev col-6">
+                   
+                </article>
+                <article class="post-next col-6">
+                   
+                  <a href="/2022/08/13/K-Nearest%20Neighbors/">
+                    <span class="hidden-mobile">K邻近算法（K-Nearest Neighbors）</span>
+                    <span class="visible-mobile">Next</span>
+                    <i class="iconfont icon-arrowright"></i>
+                  </a>
+                  
+                </article>
+              </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+    <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+      <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+    </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -426,6 +472,19 @@
 
 
 
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
 
 
 
@@ -445,6 +504,48 @@
 
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
 
 
 
