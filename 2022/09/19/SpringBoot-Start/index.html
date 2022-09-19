@@ -30,7 +30,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/w8R20A.png">
 <meta property="article:published_time" content="2022-09-19T09:22:01.000Z">
-<meta property="article:modified_time" content="2022-09-19T09:23:21.241Z">
+<meta property="article:modified_time" content="2022-09-19T09:30:49.994Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary_large_image">
@@ -203,7 +203,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2k 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16 分钟
+      17 分钟
     </span>
   
 
@@ -342,8 +342,8 @@
 <figure>
 <img
 src="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/e8Y2LS.png" srcset="/img/loading.gif" lazyload
-alt="e8Y2LS" />
-<figcaption aria-hidden="true">e8Y2LS</figcaption>
+alt="mybatis-spring-boot-starter" />
+<figcaption aria-hidden="true">mybatis-spring-boot-starter</figcaption>
 </figure>
 <h2 id="自动配置">自动配置：</h2>
 <p>自动配置的本质其实还是SpingBoot的IOC机制，这里介绍一下SpringBoot的容器：</p>
@@ -352,27 +352,28 @@ alt="e8Y2LS" />
 <figure>
 <img
 src="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/82azwr.png" srcset="/img/loading.gif" lazyload
-alt="82azwr" />
-<figcaption aria-hidden="true">82azwr</figcaption>
+alt="依赖关系" />
+<figcaption aria-hidden="true">依赖关系</figcaption>
 </figure>
 <p>当类的数量没有那么多，且关系并不复杂的时候，人们通常通过new来得到想要的对象。但是当类的关系变得复杂了之后：</p>
 <figure>
 <img
 src="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/yzbJcs.png" srcset="/img/loading.gif" lazyload
-alt="yzbJcs" />
-<figcaption aria-hidden="true">yzbJcs</figcaption>
+alt="依赖关系" />
+<figcaption aria-hidden="true">依赖关系</figcaption>
 </figure>
 <p>显然用到一个对象就new一个不是一个“聪明”的办法</p>
 <p>所以为了降低复杂度，减少他们之间的耦合，这个时候我们就需要用上Spring容器了。这个容器允许我们将创建的类“扔进去”，当其他的类需要这个类的时候，容器会将需要的对象“重新包装”一下拿出来（初始化）。比如上面的A，B，C，D。当创建这些类的时候，我们可以将ABCD都放入容器中，当A需要C的之后，他只需要从容器拿出来就可以了，从而避免了生成大量重复的对象。</p>
 <p>到这里，不经会有一个问题：Spring容器是什么。</p>
 <p>在Spring框架中，ApplicationContext就代表了容器（又叫应用程序上下文），容器里的对象，又叫Bean。</p>
 <p>可以看到上面有两个关键步骤：<strong>放到容器中</strong>，<strong>从容器中拿出来</strong>，那么我们如何在实际的工作中实现呢：</p>
-<p><img src="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/w8R20A.png" srcset="/img/loading.gif" lazyload alt="w8R20A" style="zoom:67%;" /></p>
+<p><img src="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/w8R20A.png" srcset="/img/loading.gif" lazyload alt="容器使用实例" style="zoom:67%;" /></p>
 <p>这是<code>org.mybatis.spring.boot.autoconfigure</code>包下的配置类：<code>MybatisAutoConfiguration</code></p>
 <ul>
 <li><code>@Configuration</code>：标注在类上，配置spring容器(应用上下文)。相当于把该类作为spring的xml配置文件中的<code>&lt;beans&gt;</code>。</li>
 <li><code>@Bean</code>注解标注的方法，返回的类型都会直接注册为<code>bean</code>放到容器中。</li>
 </ul>
+<p>当<code>@Configuration</code>和<code>@Bean</code>一起使用的时候，就可以将<code>SqlSessionFactory</code>的对象以<code>Bean</code>的形式注册到容器中，A类需要使用的时候只需要<code>@Autowire</code>将这个<code>Bean</code>注入到当前A类就可以了。</p>
 
             </div>
             <hr />
