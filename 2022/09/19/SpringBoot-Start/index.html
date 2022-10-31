@@ -23,20 +23,20 @@
   <meta name="keywords" content="">
   <meta name="description" content="SpringBoot启动机制 引入依赖：  现在搭建一个基础的SpringBoot项目只需要引入以下依赖：  123456789101112131415161718192021222324252627282930&lt;parent&gt;        &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;        &lt;artif">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringBoot（一）：启动 _">
+<meta property="og:title" content="SpringBoot（一）：启动">
 <meta property="og:url" content="http://example.com/2022/09/19/SpringBoot-Start/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="SpringBoot启动机制 引入依赖：  现在搭建一个基础的SpringBoot项目只需要引入以下依赖：  123456789101112131415161718192021222324252627282930&lt;parent&gt;        &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;        &lt;artif">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/w8R20A.png">
 <meta property="article:published_time" content="2022-09-19T09:22:01.000Z">
-<meta property="article:modified_time" content="2022-09-19T09:35:22.218Z">
+<meta property="article:modified_time" content="2022-10-31T09:28:45.569Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/w8R20A.png">
   
-  <title>SpringBoot（一）：启动 _ - Hexo</title>
+  <title>SpringBoot（一）：启动 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -182,7 +182,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="SpringBoot（一）：启动 _">
+            <span class="h2" id="subtitle" title="SpringBoot（一）：启动">
               
             </span>
 
@@ -203,7 +203,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2k 字
+      2.7k 字
     </span>
   
 
@@ -212,7 +212,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17 分钟
+      23 分钟
     </span>
   
 
@@ -306,7 +306,7 @@
         <a href="/2022/09/19/SpringBoot-Start/"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">SpringBoot（一）：启动 _</span>
+          <span class="category-post">SpringBoot（一）：启动</span>
         </a>
       
     
@@ -329,7 +329,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none;">SpringBoot（一）：启动 _</h1>
+            <h1 style="display: none;">SpringBoot（一）：启动</h1>
             
             <div class="markdown-body">
               <h1 id="springboot启动机制">SpringBoot启动机制</h1>
@@ -362,6 +362,19 @@ src="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/yzbJcs.png" sr
 <li><code>@Bean</code>注解标注的方法，返回的类型都会直接注册为<code>bean</code>放到容器中。</li>
 </ul>
 <p>当<code>@Configuration</code>和<code>@Bean</code>一起使用的时候，就可以将<code>SqlSessionFactory</code>的对象以<code>Bean</code>的形式注册到容器中，A类需要使用的时候只需要<code>@Autowire</code>将这个<code>Bean</code>注入到当前A类就可以了。</p>
+<h2
+id="通过ymlproperites文件实现参数配置">通过yml，properites文件实现参数配置：</h2>
+<p>以Mybatis的配置为例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">datasource:</span><br>    <span class="hljs-attr">url:</span> <span class="hljs-string">jdbc:mysql://127.0.0.1:3306</span><br>    <span class="hljs-attr">username:</span> <span class="hljs-string">root</span><br>    <span class="hljs-attr">password:</span> <span class="hljs-string">a123456</span><br>    <span class="hljs-attr">driver-class-name:</span> <span class="hljs-string">com.mysql.jdbc.Driver</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">com.alibaba.druid.pool.DruidDataSource</span><br>    <span class="hljs-attr">dbcp2:</span><br>      <span class="hljs-attr">min-idle:</span> <span class="hljs-number">5</span><br>      <span class="hljs-attr">initial-size:</span> <span class="hljs-number">5</span><br>      <span class="hljs-attr">max-total:</span> <span class="hljs-number">5</span><br>      <span class="hljs-attr">max-wait-millis:</span> <span class="hljs-number">200</span><br></code></pre></td></tr></table></figure>
+<p>这样的配置是通过package
+org.springframework.boot.autoconfigure.jdb;<code>包下的</code>DataSourceAutoConfiguration`类实现的。这里的自动配置用到了一些条件依赖注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@ConditionalOnBean</span>     <span class="hljs-comment">//仅在当前上下文中存在某个bean时，才会实例化这个Bean。</span><br><br><span class="hljs-meta">@ConditionalOnClass</span>    <span class="hljs-comment">//某个class位于类路径上，才会实例化这个Bean。</span><br></code></pre></td></tr></table></figure>
+<p>另外一个值得注意的是如果<code>@ConfigurationProperties</code>是在第三方包中，那么<code>@component</code>是不能注册到容器的。只有<code>@EnableConfigurationProperties</code>才可以注册到容器。这里是因为是Mybatis的外部依赖，所以通过这种形式可以将该类注册到我们的SpringBoot容器中。</p>
+<p>可以看到在<code>DataSourceProperties</code>中设置了一些参数，我们只要在yml文件中设置这些参数就可以：</p>
+<p><img
+src="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/lIxSBr.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://fastly.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/image-20220919180247169.png" srcset="/img/loading.gif" lazyload /></p>
 
             </div>
             <hr />
