@@ -4,6 +4,64 @@
   
   
   <entry>
+    <title>3月算法小记(March)</title>
+    <link href="/2023/03/14/LeetCode/"/>
+    <url>/2023/03/14/LeetCode/</url>
+    
+    <content type="html"><![CDATA[<h4 id="剑指-Offer-II-005-单词长度的最大乘积"><a href="#剑指-Offer-II-005-单词长度的最大乘积" class="headerlink" title="剑指 Offer II 005. 单词长度的最大乘积"></a>剑指 Offer II 005. 单词长度的最大乘积</h4><ul><li>比较不同——可以考虑位运算（与）</li><li>全部小写/全部大写字母  —-用<code>int[26]</code>的数组存储表示</li></ul><h4 id="剑指-Offer-II-006-排序数组中两个数字之和"><a href="#剑指-Offer-II-006-排序数组中两个数字之和" class="headerlink" title="剑指 Offer II 006. 排序数组中两个数字之和"></a>剑指 Offer II 006. 排序数组中两个数字之和</h4><ul><li><p>用hash实现</p></li><li><p>有序的数组注意二分查找、循环停止条件是<code>(low&lt;=high)</code></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//要找的target</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">binarySearch</span> <span class="hljs-params">(<span class="hljs-type">int</span>[] nums,target)</span>&#123;<br>  <span class="hljs-type">int</span> <span class="hljs-variable">low</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>  <span class="hljs-type">int</span> <span class="hljs-variable">high</span> <span class="hljs-operator">=</span> nums.length-<span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">while</span>(low&lt;=high)&#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> (hig - low)/<span class="hljs-number">2</span> + low;<br>    <span class="hljs-keyword">if</span>(nums[mid] == target)&#123;<br>      <span class="hljs-keyword">return</span> mid;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(target &gt; mid)&#123;<br>      low = mid + <span class="hljs-number">1</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>      high = mid - <span class="hljs-number">1</span>;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习记录</category>
+      
+      <category>三月</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JAVA</tag>
+      
+      <tag>algorithm</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>3月杂记（March）</title>
+    <link href="/2023/03/14/LearningSticker/"/>
+    <url>/2023/03/14/LearningSticker/</url>
+    
+    <content type="html"><![CDATA[<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><ul><li><p>举一个java中令人印象深刻的特性：</p><p><strong>1、分层编译</strong></p><ul><li><p>在Java 7以前，需要研发人员根据服务的性质去选择编译器。对于需要快速启动的，或者一些不会长期运行的服务，可以采用编译效率较高的C1，对应参数-client。</p><p>长期运行的服务，或者对峰值性能有要求的后台服务，可以采用峰值性能更好的C2，对应参数-server。</p></li><li><p>Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追求启动速度和峰值性能的一个平衡。分层编译将JVM的执行状态分为了五个层次。五个层级分别是：</p><ul><li><strong>解释执行</strong>：在这个层次，JVM 会直接解释 Java 字节码并执行代码。</li><li><strong>执行不带 profiling 的 C1 代码</strong>：在这个层次，JVM 会使用 C1 编译器将代码编译成本地代码，并执行该代码。这个层次的代码通常速度较快，但精度较低。</li><li><strong>执行仅带方法调用次数以及循环回边执行次数 profiling 的 C1 代码</strong>：在这个层次，JVM 会在编译代码时添加一些 profiling 信息，如方法调用次数和循环回边执行次数。这些信息可以用来优化代码并提高执行速度。</li><li><strong>执行带所有 profiling 的 C1 代码</strong>：在这个层次，JVM 会使用更多的 profiling 信息来编译代码，并进一步优化代码。</li><li><strong>执行 C2 代码</strong>：在这个层次，JVM 会使用 C2 编译器将代码编译成高度优化的本地代码，并执行该代码。这个层次的代码通常速度最快，但编译时间较长。</li><li><img src="https://p0.meituan.net/travelcube/9dee40c45e1abb392243e07666ff6d5b79153.png@863w_680h_80q" alt="img" style="zoom:67%;" /><ul><li>图中第①条路径，代表编译的一般情况，热点方法从解释执行到被3层的C1编译，最后被4层的C2编译。</li><li>如果方法比较小（比如Java服务中常见的getter/setter方法），3层的profiling没有收集到有价值的数据，JVM就会断定该方法对于C1代码和C2代码的执行效率相同，就会执行图中第②条路径。在这种情况下，JVM会在3层编译之后，放弃进入C2编译，直接选择用1层的C1编译运行。</li><li>在C1忙碌的情况下，执行图中第③条路径，在解释执行过程中对程序进行profiling ，根据信息直接由第4层的C2编译。</li><li>前文提到C1中的执行效率是1层&gt;2层&gt;3层，第3层一般要比第2层慢35%以上，所以在C2忙碌的情况下，执行图中第④条路径。这时方法会被2层的C1编译，然后再被3层的C1编译，以减少方法在3层的执行时间。</li><li>如果编译器做了一些比较激进的优化，比如分支预测，在实际运行时发现预测出错，这时就会进行反优化，重新进入解释执行，图中第⑤条执行路径代表的就是反优化。</li></ul></li></ul></li></ul><p><strong>2、编译优化</strong></p><ul><li><p>（<strong>SSA IR</strong>）Java编译中的中间表达形式：静态单赋值（Static Single Assignment，SSA）IR，SSA 中间表达形式是一种图结构IR，特点是每个变量只能被赋值一次，可以识别出<strong>冗余变量</strong>和<strong>死代码</strong>。</p><p><strong>我们可以将编译器的每一种优化看成一个图优化算法，它接收一个IR图，并输出经过转换后的IR图。编译器优化的过程就是一个个图节点的优化串联起来的。</strong></p></li><li></li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习记录</category>
+      
+      <category>三月</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JAVA</tag>
+      
+      <tag>JVM</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>SpringBoot（一）：启动-自动配置</title>
     <link href="/2022/10/31/SpringBoot-Start/"/>
     <url>/2022/10/31/SpringBoot-Start/</url>

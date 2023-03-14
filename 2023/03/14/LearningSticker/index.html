@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Java
+举一个java中令人印象深刻的特性：
+1、分层编译
+
+在Java 7以前，需要研发人员根据服务的性质去选择编译器。对于需要快速启动的，或者一些不会长期运行的服务，可以采用编译效率较高的C1，对应参数-client。
+长期运行的服务，或者对峰值性能有要求的后台服务，可以采用峰值性能更好的C2，对应参数-server。
+
+Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追求启">
+  <meta name="author" content="chenyuZhong">
+  <meta name="keywords" content="">
+  <meta name="description" content="Java 举一个java中令人印象深刻的特性： 1、分层编译  在Java 7以前，需要研发人员根据服务的性质去选择编译器。对于需要快速启动的，或者一些不会长期运行的服务，可以采用编译效率较高的C1，对应参数-client。 长期运行的服务，或者对峰值性能有要求的后台服务，可以采用峰值性能更好的C2，对应参数-server。  Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追求启">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3月杂记（March）">
+<meta property="og:url" content="http://example.com/2023/03/14/LearningSticker/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java 举一个java中令人印象深刻的特性： 1、分层编译  在Java 7以前，需要研发人员根据服务的性质去选择编译器。对于需要快速启动的，或者一些不会长期运行的服务，可以采用编译效率较高的C1，对应参数-client。 长期运行的服务，或者对峰值性能有要求的后台服务，可以采用峰值性能更好的C2，对应参数-server。  Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追求启">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p0.meituan.net/travelcube/9dee40c45e1abb392243e07666ff6d5b79153.png@863w_680h_80q">
+<meta property="article:published_time" content="2023-03-14T15:14:00.000Z">
+<meta property="article:modified_time" content="2023-03-14T15:19:29.962Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://p0.meituan.net/travelcube/9dee40c45e1abb392243e07666ff6d5b79153.png@863w_680h_80q">
+  
+  <title>3月杂记（March） - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>chenyuZhong</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/mount.webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="3月杂记（March）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-03-14 23:14" pubdate>
+        2023-03-14 23:14
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2 post-categories">
+      
+        
+
+
+
+
+
+
+<div class="category-list">
+  
+  
+  
+  
+  
+    
+    
+    
+    <div class="category row">
+      <a class="category-item 
+                 
+                list-group-item category-item-action col-10 col-md-11 col-xm-11"
+        id="heading-7f2ecb9c4d10981cd40468b79a104150" role="tab" data-toggle="collapse" href="#collapse-7f2ecb9c4d10981cd40468b79a104150"
+        aria-expanded="true"
+      >
+        学习记录(2) 
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+       
+      <div class="category-collapse collapse show" id="collapse-7f2ecb9c4d10981cd40468b79a104150" role="tabpanel" aria-labelledby="heading-7f2ecb9c4d10981cd40468b79a104150">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+          
+  
+  
+  
+  
+    
+    
+    
+    <div class="category-sub row">
+      <a class="category-subitem 
+                 
+                list-group-item category-item-action col-10 col-md-11 col-xm-11"
+        id="heading-eade91dc002fb276234cefd4797f14f5" role="tab" data-toggle="collapse" href="#collapse-eade91dc002fb276234cefd4797f14f5"
+        aria-expanded="true"
+      >
+        三月(2) 
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+       
+      <div class="category-collapse collapse show" id="collapse-eade91dc002fb276234cefd4797f14f5" role="tabpanel" aria-labelledby="heading-eade91dc002fb276234cefd4797f14f5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/03/14/LeetCode/"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3月算法小记(March)</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/03/14/LearningSticker/"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">3月杂记（March）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+      
+    </div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none;">3月杂记（March）</h1>
+            
+            <div class="markdown-body">
+              <h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><ul>
+<li><p>举一个java中令人印象深刻的特性：</p>
+<p><strong>1、分层编译</strong></p>
+<ul>
+<li><p>在Java 7以前，需要研发人员根据服务的性质去选择编译器。对于需要快速启动的，或者一些不会长期运行的服务，可以采用编译效率较高的C1，对应参数-client。</p>
+<p>长期运行的服务，或者对峰值性能有要求的后台服务，可以采用峰值性能更好的C2，对应参数-server。</p>
+</li>
+<li><p>Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追求启动速度和峰值性能的一个平衡。分层编译将JVM的执行状态分为了五个层次。五个层级分别是：</p>
+<ul>
+<li><strong>解释执行</strong>：在这个层次，JVM 会直接解释 Java 字节码并执行代码。</li>
+<li><strong>执行不带 profiling 的 C1 代码</strong>：在这个层次，JVM 会使用 C1 编译器将代码编译成本地代码，并执行该代码。这个层次的代码通常速度较快，但精度较低。</li>
+<li><strong>执行仅带方法调用次数以及循环回边执行次数 profiling 的 C1 代码</strong>：在这个层次，JVM 会在编译代码时添加一些 profiling 信息，如方法调用次数和循环回边执行次数。这些信息可以用来优化代码并提高执行速度。</li>
+<li><strong>执行带所有 profiling 的 C1 代码</strong>：在这个层次，JVM 会使用更多的 profiling 信息来编译代码，并进一步优化代码。</li>
+<li><strong>执行 C2 代码</strong>：在这个层次，JVM 会使用 C2 编译器将代码编译成高度优化的本地代码，并执行该代码。这个层次的代码通常速度最快，但编译时间较长。</li>
+<li><img src="https://p0.meituan.net/travelcube/9dee40c45e1abb392243e07666ff6d5b79153.png@863w_680h_80q" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" /><ul>
+<li>图中第①条路径，代表编译的一般情况，热点方法从解释执行到被3层的C1编译，最后被4层的C2编译。</li>
+<li>如果方法比较小（比如Java服务中常见的getter/setter方法），3层的profiling没有收集到有价值的数据，JVM就会断定该方法对于C1代码和C2代码的执行效率相同，就会执行图中第②条路径。在这种情况下，JVM会在3层编译之后，放弃进入C2编译，直接选择用1层的C1编译运行。</li>
+<li>在C1忙碌的情况下，执行图中第③条路径，在解释执行过程中对程序进行profiling ，根据信息直接由第4层的C2编译。</li>
+<li>前文提到C1中的执行效率是1层&gt;2层&gt;3层，第3层一般要比第2层慢35%以上，所以在C2忙碌的情况下，执行图中第④条路径。这时方法会被2层的C1编译，然后再被3层的C1编译，以减少方法在3层的执行时间。</li>
+<li>如果编译器做了一些比较激进的优化，比如分支预测，在实际运行时发现预测出错，这时就会进行反优化，重新进入解释执行，图中第⑤条执行路径代表的就是反优化。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>2、编译优化</strong></p>
+<ul>
+<li><p>（<strong>SSA IR</strong>）Java编译中的中间表达形式：静态单赋值（Static Single Assignment，SSA）IR，SSA 中间表达形式是一种图结构IR，特点是每个变量只能被赋值一次，可以识别出<strong>冗余变量</strong>和<strong>死代码</strong>。</p>
+<p><strong>我们可以将编译器的每一种优化看成一个图优化算法，它接收一个IR图，并输出经过转换后的IR图。编译器优化的过程就是一个个图节点的优化串联起来的。</strong></p>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <hr />
+            <div>
+              <div class="post-metas mb-3">
+                
+                <div class="post-meta mr-3">
+                  <i class="iconfont icon-category"></i>
+                  
+                  <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"
+                    >学习记录</a
+                  >
+                  
+                  <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/%E4%B8%89%E6%9C%88/"
+                    >三月</a
+                  >
+                  
+                </div>
+                 
+                <div class="post-meta">
+                  <i class="iconfont icon-tags"></i>
+                  
+                  <a class="hover-with-bg" href="/tags/JAVA/"
+                    >JAVA</a
+                  >
+                  
+                  <a class="hover-with-bg" href="/tags/JVM/"
+                    >JVM</a
+                  >
+                  
+                </div>
+                
+              </div>
+              
+              <p class="note note-warning">
+                 本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！ 
+              </p>
+               
+              <div class="post-prevnext">
+                <article class="post-prev col-6">
+                   
+                  <a href="/2023/03/14/LeetCode/">
+                    <i class="iconfont icon-arrowleft"></i>
+                    <span class="hidden-mobile">3月算法小记(March)</span>
+                    <span class="visible-mobile">Previous</span>
+                  </a>
+                  
+                </article>
+                <article class="post-next col-6">
+                   
+                  <a href="/2022/10/31/SpringBoot-Start/">
+                    <span class="hidden-mobile">SpringBoot（一）：启动-自动配置</span>
+                    <span class="visible-mobile">Next</span>
+                    <i class="iconfont icon-arrowright"></i>
+                  </a>
+                  
+                </article>
+              </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+    <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+      <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+    </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
