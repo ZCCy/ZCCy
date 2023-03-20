@@ -32,7 +32,7 @@ Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追�
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p0.meituan.net/travelcube/9dee40c45e1abb392243e07666ff6d5b79153.png@863w_680h_80q">
 <meta property="article:published_time" content="2023-03-14T15:14:00.000Z">
-<meta property="article:modified_time" content="2023-03-16T15:23:05.270Z">
+<meta property="article:modified_time" content="2023-03-20T14:44:08.825Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="JAVA">
 <meta property="article:tag" content="JVM">
@@ -206,7 +206,7 @@ Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追�
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      3.2k 字
     </span>
   
 
@@ -215,7 +215,7 @@ Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追�
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15 分钟
+      27 分钟
     </span>
   
 
@@ -377,7 +377,13 @@ Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追�
 </ul>
 </li>
 </ul>
-<h1 id="DataBase："><a href="#DataBase：" class="headerlink" title="DataBase："></a>DataBase：</h1><h4 id="索引失效的几种原因："><a href="#索引失效的几种原因：" class="headerlink" title="索引失效的几种原因："></a>索引失效的几种原因：</h4><h5 id="1、联合索引不满足最左匹配原则："><a href="#1、联合索引不满足最左匹配原则：" class="headerlink" title="1、联合索引不满足最左匹配原则："></a>1、联合索引不满足最左匹配原则：</h5><ul>
+<h1 id="DataBase："><a href="#DataBase：" class="headerlink" title="DataBase："></a>DataBase：</h1><h4 id="索引失效的几种原因："><a href="#索引失效的几种原因：" class="headerlink" title="索引失效的几种原因："></a>索引失效的几种原因：</h4><blockquote>
+<p>总结不生效有两种情况：</p>
+<p>1、索引本质就是按照某个字段为数据排序，如果搜索条件用不到拍好的序，就不走索引。</p>
+<p>2、当扫描了数据10%～30%左右的时候，优化器就会放弃索引，自动全表扫。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.51cto.com/article/702691.html">https://www.51cto.com/article/702691.html</a></p>
+</blockquote>
+<h5 id="1、联合索引不满足最左匹配原则："><a href="#1、联合索引不满足最左匹配原则：" class="headerlink" title="1、联合索引不满足最左匹配原则："></a>1、联合索引不满足最左匹配原则：</h5><ul>
 <li><p>索引：<code>KEY union_idx(id_no,username,age)</code></p>
 </li>
 <li><p>失效语句：<code>explain select * from t_user where username = &#39;Tom2&#39; and age = 12;</code></p>
@@ -392,7 +398,59 @@ Java 7开始引入了分层编译的概念，它结合了C1和C2的优势，追�
 <li>失效语句：<code>explain select * from t_user where username = &#39;Tom2&#39;;</code></li>
 <li>根本原因：创建索引的时候，其实就是将<strong>id_no, username, age</strong>这三列的数据，根据规则放到特定的数据结构中，所以当那这些数据的时候，查询优化器可以直接从索引中拿到对应的值，减少了回表的时长。</li>
 </ul>
-<p>未看完：<a target="_blank" rel="noopener" href="https://www.51cto.com/article/702691.html">https://www.51cto.com/article/702691.html</a></p>
+<h5 id="3、索引列使用函数计算："><a href="#3、索引列使用函数计算：" class="headerlink" title="3、索引列使用函数计算："></a>3、索引列使用函数计算：</h5><ul>
+<li><p>索引：<code>KEY union_idx(id)</code></p>
+</li>
+<li><p>失效语句：<code>explain select * from t_user where id + 1 = 2 ;</code></p>
+</li>
+<li><p>根本原因：</p>
+<ul>
+<li><p>索引列使用了函数之后，由于数值改变，需要原先索引的顺序会发生变化，所以会全表扫。</p>
+</li>
+<li><p>非确定性函数（如 RANDOM() 或 NOW()），会在每次调用时产生不同的结果。由于数据库优化器无法预测这些结果，它可能不会选择使用索引。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="4、LIKE错误使用："><a href="#4、LIKE错误使用：" class="headerlink" title="4、LIKE错误使用："></a>4、LIKE错误使用：</h5><ul>
+<li>失效语句：<code>like &#39;%abc&#39;;ike &#39;%abc%&#39;;</code></li>
+<li>根本原因:<ul>
+<li>索引创建时是按照从左往右创建的，由于在左侧使用了占位符，原先的排序就不生效了。</li>
+</ul>
+</li>
+</ul>
+<h5 id="5、OR不正当使用："><a href="#5、OR不正当使用：" class="headerlink" title="5、OR不正当使用："></a>5、OR不正当使用：</h5><ul>
+<li>失效语句1：<code>explain select * from t_user where id = 2 or username = &#39;Tom2&#39;;</code></li>
+<li>失效语句2: <code>explain select * from t_user where id  &gt; 1 or id  &lt; 80;</code></li>
+<li>根本原因：<ul>
+<li>失效语句1: username没有索引，所以会全表扫</li>
+<li>失效语句2: 当使用 OR 条件连接多个范围查询时，如果两个范围之间有很多数据重叠，查询涵盖的数据量会变大，使得索引的选择性降低。此时，数据库优化器可能会认为全表扫描比使用索引更高效。</li>
+</ul>
+</li>
+</ul>
+<h5 id="6、两列比较："><a href="#6、两列比较：" class="headerlink" title="6、两列比较："></a>6、两列比较：</h5><ul>
+<li>失效语句：<code>explain select * from t_user where id &gt; age;</code></li>
+</ul>
+<h5 id="7、不等于和is-not-null，not-exist："><a href="#7、不等于和is-not-null，not-exist：" class="headerlink" title="7、不等于和is not null，not exist："></a>7、不等于和is not null，not exist：</h5><ul>
+<li>失效语句1：<code>explain select * from t_user where create_time != &#39;2022-02-27 09:56:42&#39;;</code></li>
+<li><p>失效语句2：<code>explain select * from t_user where id_no is not null;</code></p>
+</li>
+<li><p>根本原因：</p>
+<ul>
+<li><p>当作为字符串的时候，用 != 可能会不走索引：</p>
+<ol>
+<li>索引选择性不佳：当使用 <code>!=</code>（或 <code>&lt;&gt;</code>）操作符时，查询涵盖的数据范围可能相当大，这导致索引的选择性降低。数据库优化器可能认为全表扫描比使用索引更高效。如果查询涉及的数据范围较小，那么索引仍有可能被使用。</li>
+<li>索引顺序与查询顺序不匹配：当 <code>!=</code>（或 <code>&lt;&gt;</code>）操作符与其他条件（如排序和分组）结合使用时，索引失效的可能性更高。因为这些操作要求数据按照特定顺序处理，而索引的顺序可能与这些操作所需的顺序不匹配。</li>
+</ol>
+</li>
+<li><p>Is not null 不走索引：</p>
+<p>1、索引选择性不佳：当大部分行的列值都不为 NULL 时，使用 <code>IS NOT NULL</code> 作为过滤条件可能覆盖了大量数据。在这种情况下，索引的选择性降低，数据库优化器可能会认为全表扫描比使用索引更高效。</p>
+<p>2、数据库优化器决策：根据统计信息和成本评估，数据库优化器可能会判断全表扫描或其他扫描方法（如顺序扫描）比使用索引更合适。优化器会根据数据分布、表大小、硬件资源等因素做出决策，这可能导致 <code>IS NOT NULL</code> 不走索引。</p>
+<p>3、索引类型：某些索引类型可能无法用于 <code>IS NOT NULL</code> 查询。例如，MySQL 的 <strong>MyISAM</strong> 存储引擎不会为全为 NULL 的列创建索引记录。因此，在使用 MyISAM 存储引擎的表中，<code>IS NOT NULL</code> 查询可能无法使用索引。</p>
+</li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr />
