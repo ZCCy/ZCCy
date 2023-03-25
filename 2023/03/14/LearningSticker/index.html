@@ -37,8 +37,10 @@ Java
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/XZSeoX.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/aF7onl.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/fjrI7O.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/zUi91F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/7X0VD4.png">
 <meta property="article:published_time" content="2023-03-14T15:14:00.000Z">
-<meta property="article:modified_time" content="2023-03-22T15:22:04.937Z">
+<meta property="article:modified_time" content="2023-03-25T14:29:26.695Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="JAVA">
 <meta property="article:tag" content="JVM">
@@ -212,7 +214,7 @@ Java
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.7k 字
+      5.4k 字
     </span>
   
 
@@ -221,7 +223,7 @@ Java
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32 分钟
+      46 分钟
     </span>
   
 
@@ -518,6 +520,64 @@ job是通过handler注解来标记任务的实现，实现需要重写exacute类
 <li>SpringBoot将TomCat作为一个jar包嵌入到SpringBoot中</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/fjrI7O.png" srcset="/img/loading.gif" lazyload alt="fjrI7O" style="zoom:50%;" /></p>
+<h1 id="springmvc启动过程">SpringMVC启动过程：</h1>
+<p><img src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/zUi91F.png" srcset="/img/loading.gif" lazyload alt="zUi91F" style="zoom: 50%;" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/7X0VD4.png" srcset="/img/loading.gif" lazyload alt="7X0VD4" style="zoom:50%;" /></p>
+<h2 id="tomcat通过接口启动">1、Tomcat通过接口启动：</h2>
+<ul>
+<li>创建根容器（ApplicationContex）。
+<ul>
+<li>包含所有bean定义与依赖关系。</li>
+</ul></li>
+<li>然后把根容器放入ServletContext中。
+<ul>
+<li>代表当前Web应用，可以通过ServletContext与Tomcat通信。可以创建获取静态文件。</li>
+</ul></li>
+<li>接着创建Servlet容器。
+<ul>
+<li>负责管理Servlet生命周期和Servlet请求，当应用被卸载或容器关闭时，会销毁所有的Servlet实例（订阅者模型）</li>
+</ul></li>
+<li>然后使用Servlet容器去创建核心Servlet（DispatcherServlet）。
+<ul>
+<li>重点</li>
+</ul></li>
+<li>接着把核心Servlet注册到ServletContext中。</li>
+<li>接着再注册一些过滤器。</li>
+</ul>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/BXATi2.png" srcset="/img/loading.gif" lazyload
+alt="BXATi2" />
+<figcaption aria-hidden="true">BXATi2</figcaption>
+</figure>
+<h3 id="tomcat通过web.xml启动">2、Tomcat通过web.xml启动：</h3>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/ZCCy/Blog-Picture@master/uPic/Qnxa7H.png" srcset="/img/loading.gif" lazyload
+alt="Qnxa7H" />
+<figcaption aria-hidden="true">Qnxa7H</figcaption>
+</figure>
+<p>tomcat
+web容器启动时会去读取<code>web.xml</code>这样的<code>部署描述文件</code>，相关组件启动顺序为:
+<code>解析&lt;context-param&gt;</code> =&gt;
+<code>解析&lt;listener&gt;</code> =&gt; <code>解析&lt;filter&gt;</code>
+=&gt; <code>解析&lt;servlet&gt;</code>，具体初始化过程如下:</p>
+<ul>
+<li><p>1、解析<code>&lt;context-param&gt;</code>里的键值对。</p></li>
+<li><p>2、创建一个<code>application</code>内置对象即<code>ServletContext</code>，servlet上下文，用于全局共享。</p></li>
+<li><p>3、将<code>&lt;context-param&gt;</code>的键值对放入<code>ServletContext</code>即<code>application</code>中，<code>Web应用</code>内全局共享。</p></li>
+<li><p>4、读取<code>&lt;listener&gt;</code>标签创建监听器，一般会使用<code>ContextLoaderListener类</code>，如果使用了<code>ContextLoaderListener类</code>，<code>Spring</code>就会创建一个<code>WebApplicationContext类</code>的对象，<code>WebApplicationContext类</code>就是<code>IoC容器</code>，<code>ContextLoaderListener类</code>创建的<code>IoC容器</code>是<code>根IoC容器</code>为全局性的，并将其放置在<code>appication</code>中，作为应用内全局共享，键名为<code>WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE</code>，可以通过以下两种方法获取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs undefined">WebApplicationContext applicationContext = (WebApplicationContext) application.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);<br><br>WebApplicationContext applicationContext1 = WebApplicationContextUtils.getWebApplicationContext(application);<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>这个全局的<code>根IoC容器</code>只能获取到在该容器中创建的<code>Bean</code>不能访问到其他容器创建的<code>Bean</code>，也就是读取<code>web.xml</code>配置的<code>contextConfigLocation</code>参数的<code>xml文件</code>来创建对应的<code>Bean</code>。</p>
+<ul>
+<li>5、<code>listener</code>创建完成后如果有<code>&lt;filter&gt;</code>则会去创建<code>filter</code>。</li>
+<li>6、初始化创建<code>&lt;servlet&gt;</code>，一般使用<code>DispatchServlet类</code>。</li>
+<li>7、<code>DispatchServlet</code>的父类<code>FrameworkServlet</code>会重写其父类的<code>initServletBean</code>方法，并调用<code>initWebApplicationContext()</code>以及<code>onRefresh()</code>方法。</li>
+<li>8、<code>initWebApplicationContext()</code>方法会创建一个当前<code>servlet</code>的一个<code>IoC子容器</code>，如果存在上述的全局<code>WebApplicationContext</code>则将其设置为<code>父容器</code>，如果不存在上述全局的则<code>父容器</code>为null。</li>
+<li>9、读取<code>&lt;servlet&gt;</code>标签的<code>&lt;init-param&gt;</code>配置的<code>xml文件</code>并加载相关<code>Bean</code>。</li>
+<li>10、<code>onRefresh()</code>方法创建<code>Web应用</code>相关组件。</li>
+</ul>
 
             </div>
             <hr />
